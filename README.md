@@ -1,6 +1,7 @@
 WebViewJavascriptBridge
 =======================
-
+本项目做了中文本地化处理 ，使得理解更容易，
+并加入js注入的方法例子，集成起来更快
 An iOS/OSX bridge for sending messages between Obj-C and JavaScript in UIWebViews/WebViews.
 
 If you like WebViewJavascriptBridge you may also want to check out [WebViewProxy](https://github.com/marcuswestin/WebViewProxy).
