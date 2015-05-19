@@ -9,6 +9,7 @@
 //Modified by Openlab openlib@126.com 2015-05-19
 #import "ExampleAppViewController.h"
 #import "WebViewJavascriptBridge.h"
+#import "AFNetworking.h"
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 @interface ExampleAppViewController(){
@@ -103,9 +104,8 @@
         NSLog(@"OCBBBBBB ====  JS调用OC ---callHandle方法-- getCurrentUsrInfoNative 返回值: %@", retString);
     }];
     
-    [self loadWithLocalHtmlFileName:@"cccccc" ToWebView:self.webView];
-    //    [self loadWithRemoteHtmlWithURL:@"http://openlab.net3v.net/11.html" toWebView:self.webView];
-    //    [self loadWithRemoteURL:@"http://openlab.net3v.net/11.html"  ToWebView:self.webView];
+//    [self loadWithLocalHtmlFileName:@"cccccc" ToWebView:self.webView];
+    [self loadWithRemoteHtmlWithURL:@"http://openlab.net3v.net/11.html" toWebView:self.webView];
     
 }
 
@@ -121,12 +121,14 @@
     [self injectJSCodeFromLocalJSFile:webView];
 ////    [self injectJSWithLocalFile:webView];
 //
-    [webView stringByEvaluatingJavaScriptFromString:@"testIfJSLoaded();"];
+//    [webView stringByEvaluatingJavaScriptFromString:@"testIfJSLoaded();"];
     return ;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+//    [self injectJSCodeFromLocalJSFile:webView];
+
 //    [self injectJSCodeFromLocalJSFile:webView];
 //    [self injectJSWithLocalFile:webView];
 //    [webView stringByEvaluatingJavaScriptFromString:@"testIfJSLoaded();"];
@@ -146,23 +148,23 @@
  */
 - (void)loadWithRemoteHtmlWithURL:(NSString *)url toWebView:(UIWebView *)webView{
 //    //先把整个html文件下载下来
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-////    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-////    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-////    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//
-//    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject: @"text/html"];
-////@"http://openlab.net3v.net/11.html"
-////    @"https://www.e10066.com/shop/view/id/157"
-//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [self loadWithHtmlString:[operation responseString] ToWebView:webView];
-//    
-//        NSLog(@"JSON: %@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject: @"text/html"];
+//@"http://openlab.net3v.net/11.html"
+//    @"https://www.e10066.com/shop/view/id/157"
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadWithHtmlString:[operation responseString] ToWebView:webView];
+    
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 /**
@@ -226,6 +228,7 @@
     script.type = 'text/javascript';\
     script.appendChild(document.createTextNode(\"%@\"));\
     document.body.appendChild(script);",jsstring]];
+    [self jsSupported];
 }
 
 //从本地加载js文件引入html中

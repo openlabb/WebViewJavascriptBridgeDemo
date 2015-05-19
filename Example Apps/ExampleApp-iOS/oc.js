@@ -17,6 +17,11 @@ function testIfJSLoaded(){
     alert('恭喜,JS与OC可以正常通讯了');
 }
 
+function testMethodInvoked(){
+    alert('testMethodInvoked');
+}
+
+
 var uniqueId = 1
 function log(message, data) {
     var log = document.getElementById('log')
