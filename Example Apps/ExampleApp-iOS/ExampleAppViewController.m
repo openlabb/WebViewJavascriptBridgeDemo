@@ -104,8 +104,8 @@
         NSLog(@"OCBBBBBB ====  JS调用OC ---callHandle方法-- getCurrentUsrInfoNative 返回值: %@", retString);
     }];
     
-//    [self loadWithLocalHtmlFileName:@"cccccc" ToWebView:self.webView];
-    [self loadWithRemoteHtmlWithURL:@"http://openlab.net3v.net/11.html" toWebView:self.webView];
+    [self loadWithLocalHtmlFileName:@"cccccc" ToWebView:self.webView];
+//    [self loadWithRemoteHtmlWithURL:@"http://openlab.net3v.net/11.html" toWebView:self.webView];
     
 }
 
@@ -127,6 +127,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    //写在这里面不行哟，远程js的回调没有的
 //    [self injectJSCodeFromLocalJSFile:webView];
 
 //    [self injectJSCodeFromLocalJSFile:webView];

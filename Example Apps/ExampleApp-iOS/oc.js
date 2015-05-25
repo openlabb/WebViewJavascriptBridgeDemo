@@ -1,3 +1,5 @@
+
+(function(){
 var getCurrentUsrInfo = function(callback){
     var data = { 'id': '1', 'value': '123456'}
     window.WebViewJavascriptBridge.callHandler('getCurrentUsrInfoNative', data,callback);
@@ -11,7 +13,16 @@ var isValidURL=function(callback){
 var sendByDefault = function(callback){
     var data = 'Hello from JS button'
     window.WebViewJavascriptBridge.send(data, callback);
+ }
+
+var AppClient = {
+    getCurrentUsrInfo:getCurrentUsrInfo,
+    isValidURL:isValidURL,
+    sendByDefault:sendByDefault
 }
+ window.AppClient = AppClient;
+ }());
+
 
 function testIfJSLoaded(){
     alert('恭喜,JS与OC可以正常通讯了');

@@ -14,16 +14,15 @@
 	<script>
     function callNativeObjectiveCUserInfo() {
         log('JS调用OC', 'callHandler 方式')
-
-        getCurrentUsrInfo(function(resultFromNative){
-               // alert(resultFromNative);
-               log('JS收到OC返回的参数,callhandler方式', resultFromNative)
-        });
+        AppClient.getCurrentUsrInfo(function(resultFromNative){
+                                    // alert(resultFromNative);
+                                    log('JS收到OC返回的参数,callhandler方式', resultFromNative)
+                                    });
     }
-    
+
     function callNativeObjectiveCBySend(){
         log('JS调用OC', 'send 方式')
-        sendByDefault(function(resultFromNative){
+        AppClient.sendByDefault(function(resultFromNative){
         //alert(resultFromNative);
         log('JS收到OC返回的参数,send方式', resultFromNative)
 
